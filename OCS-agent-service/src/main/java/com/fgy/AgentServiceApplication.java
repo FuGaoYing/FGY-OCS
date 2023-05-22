@@ -8,13 +8,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author fgy
  * description
- * date 2023/5/22 9:49
+ * date 2023/5/22 9:35
  */
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableDubbo
-public class CustomerServiceApplication {
+public class AgentServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CustomerServiceApplication.class,args);
+        SpringApplication.run(AgentServiceApplication.class,args);
     }
 }

@@ -17,6 +17,8 @@
         <module>OCS-customer-service</module>
         <module>OCS-push-service</module>
         <module>OCS-ACD-service</module>
+        <module>OCS-common/OCS-common-redis</module>
+        <module>OCS-common/OCS-common-core</module>
     </modules>
 
     <properties>
@@ -26,6 +28,11 @@
         <spring-boot.version>3.0.2</spring-boot.version>
         <spring-cloud-alibaba.version>2022.0.0.0-RC2</spring-cloud-alibaba.version>
         <netty-socket-io.version>2.0.2</netty-socket-io.version>
+        <fastjson2.version>2.0.32</fastjson2.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <lombok.version>1.18.26</lombok.version>
+        <OCS.cersion>1.0-SNAPSHOT</OCS.cersion>
+        <dubbo.version>3.2.1</dubbo.version>
     </properties>
 
 
@@ -47,6 +54,12 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
             </dependency>
 
             <!-- SpringBoot 依赖配置 -->
@@ -57,7 +70,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <!--redis-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -69,6 +82,33 @@
                 <groupId>com.corundumstudio.socketio</groupId>
                 <artifactId>netty-socketio</artifactId>
                 <version>${netty-socket-io.version}</version>
+            </dependency>
+            <!--fastjson2-->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <!-- Jwt -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- 核心模块-->
+            <dependency>
+                <groupId>com.fgy</groupId>
+                <artifactId>OCS-common-core</artifactId>
+                <version>${OCS.cersion}</version>
             </dependency>
 
         </dependencies>

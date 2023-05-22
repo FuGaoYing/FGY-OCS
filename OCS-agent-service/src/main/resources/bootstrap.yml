@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
-    name: customer-service
+    name: agent-service
   cloud:
     nacos:
       server-addr: 82.157.139.239:8848
