@@ -9,14 +9,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>OCS-common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>OCS-common-security</module>
-        <module>OCS-common-redis</module>
-        <module>OCS-common-core</module>
-    </modules>
+    <artifactId>OSC-system</artifactId>
 
-
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>

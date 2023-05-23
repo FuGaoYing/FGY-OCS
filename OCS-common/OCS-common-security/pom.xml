@@ -8,15 +8,20 @@
         <artifactId>OCS-common</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
-    <artifactId>OCS-common-redis</artifactId>
-
+    <artifactId>OCS-common-security</artifactId>
 
     <dependencies>
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.fgy</groupId>
             <artifactId>OCS-common-core</artifactId>
         </dependency>
+
     </dependencies>
 
 

@@ -17,11 +17,12 @@
         <module>OCS-customer-service</module>
         <module>OCS-push-service</module>
         <module>OCS-ACD-service</module>
-        <module>OCS-common/OCS-common-redis</module>
-        <module>OCS-common/OCS-common-core</module>
+        <module>OCS-api</module>
+        <module>OSC-system</module>
     </modules>
 
     <properties>
+        <jdk.version>17</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-cloud.version>2022.0.2</spring-cloud.version>
@@ -31,8 +32,12 @@
         <fastjson2.version>2.0.32</fastjson2.version>
         <jjwt.version>0.9.1</jjwt.version>
         <lombok.version>1.18.26</lombok.version>
-        <OCS.cersion>1.0-SNAPSHOT</OCS.cersion>
+        <OCS.version>1.0-SNAPSHOT</OCS.version>
         <dubbo.version>3.2.1</dubbo.version>
+        <HikariCP.version>5.0.1</HikariCP.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mysql.version>8.0.8</mysql.version>
+        <velocity.version>2.3</velocity.version>
     </properties>
 
 
@@ -54,8 +59,9 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-
             </dependency>
+
+            <!--dubbo-->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo</artifactId>
@@ -96,6 +102,7 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
+
             <!--lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -104,14 +111,67 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!-- DataSource -->
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${HikariCP.version}</version>
+            </dependency>
+
+            <!-- MyBatis Plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.fgy</groupId>
                 <artifactId>OCS-common-core</artifactId>
-                <version>${OCS.cersion}</version>
+                <version>${OCS.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.fgy</groupId>
+                <artifactId>OCS-common-redis</artifactId>
+                <version>${OCS.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fgy</groupId>
+                <artifactId>OCS-common-security</artifactId>
+                <version>${OCS.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fgy</groupId>
+                <artifactId>OCS-api</artifactId>
+                <version>${OCS.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
