@@ -1,6 +1,6 @@
 package com.fgy.agent.controller;
 
-import com.fgy.api.service.login.LoginService;
+import com.fgy.api.service.login.UserLogin;
 import com.fgy.common.core.domain.req.AgentLoginReq;
 import com.fgy.common.core.domain.vo.TokenVo;
 import com.fgy.common.core.result.CommonResult;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @Resource
-    private LoginService<AgentLoginReq> loginService;
+    private UserLogin<AgentLoginReq> loginService;
     @PostMapping("/login")
     public CommonResult<?> login(@Validated @RequestBody AgentLoginReq agentLoginReq) {
         TokenVo login = loginService.login(agentLoginReq);

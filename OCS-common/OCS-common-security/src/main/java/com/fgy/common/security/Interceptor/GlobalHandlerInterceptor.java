@@ -17,7 +17,7 @@ public class GlobalHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
-
+            System.out.println("拦截到请求 ：" + ((HandlerMethod) handler).getMethod());
         }
         return true;
     }

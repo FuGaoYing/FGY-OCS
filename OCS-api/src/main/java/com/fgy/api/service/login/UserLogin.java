@@ -7,7 +7,7 @@ import com.fgy.common.core.domain.vo.TokenVo;
  * description
  * date 2023/5/23 15:12
  */
-public interface LoginService<T> {
+public interface UserLogin<T> {
     /**
      * 用户登录
      * @param t 入参

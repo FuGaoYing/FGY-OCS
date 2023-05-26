@@ -31,13 +31,48 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson</groupId>
+                    <artifactId>jackson-bom</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.fgy</groupId>
-            <artifactId>OCS-common-core</artifactId>
+            <artifactId>OCS-common-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fgy</groupId>
+            <artifactId>OCS-common-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fgy</groupId>
+            <artifactId>OCS-api</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.corundumstudio.socketio</groupId>
             <artifactId>netty-socketio</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
     </dependencies>

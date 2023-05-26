@@ -1,8 +1,9 @@
-package com.fgy.common.core.exceprion;
+package com.fgy.common.security.exception;
+
 import com.fgy.common.core.enums.ResultCodeEnum;
+import com.fgy.common.core.exceprion.BaseException;
 import com.fgy.common.core.result.CommonResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.yaml.snakeyaml.constructor.DuplicateKeyException;
+
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;

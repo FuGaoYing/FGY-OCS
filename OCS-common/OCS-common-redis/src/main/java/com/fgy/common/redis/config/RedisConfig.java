@@ -1,5 +1,6 @@
 package com.fgy.common.redis.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @AutoConfigureBefore(RedisAutoConfiguration.class)
+@Slf4j
 public class RedisConfig {
+
     @Bean
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
         RedisTemplate<String,Object> template = new RedisTemplate<>();
