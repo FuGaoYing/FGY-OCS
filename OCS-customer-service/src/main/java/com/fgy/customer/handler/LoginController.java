@@ -1,14 +1,13 @@
 package com.fgy.customer.handler;
 
-import com.corundumstudio.socketio.AckCallback;
-import com.corundumstudio.socketio.SocketIOClient;
 import com.fgy.api.service.login.UserLogin;
 import com.fgy.common.core.domain.vo.TokenVo;
 import com.fgy.common.core.result.CommonResult;
 import com.fgy.customer.entity.req.UserReq;
-import com.fgy.customer.listener.SocketIoListener;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,6 +23,9 @@ public class LoginController {
     @Resource(name = "userManager")
     private UserLogin<UserReq> userLogin;
 
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
+
     @PostMapping("/login")
     public CommonResult<TokenVo> login(@RequestBody UserReq userReq) {
         log.info("用户 {} 进线,入参 {}",userReq.getUserId(), userReq);
@@ -37,12 +39,5 @@ public class LoginController {
 
     @GetMapping("/test")
     public void test(@RequestParam String token) {
-        SocketIOClient socketIOClient = SocketIoListener.map.get(token);
-        socketIOClient.sendEvent("data", new AckCallback(Object.class) {
-            @Override
-            public void onSuccess(Object result) {
-                System.out.println(result);
-            }
-        },"hahaha");
     }
 }

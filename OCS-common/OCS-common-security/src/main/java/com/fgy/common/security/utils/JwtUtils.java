@@ -1,9 +1,7 @@
 package com.fgy.common.security.utils;
 
 import com.fgy.common.security.constant.SecurityConstants;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 
 import java.util.Map;
 
@@ -77,6 +75,25 @@ public class JwtUtils {
      */
     public static String getValue(Claims claims, String key) {
         return claims.get(key) == null ? "" : String.valueOf(claims.get(key));
+    }
+
+    /**
+     * 检测token是否有效
+     * @param token token
+     * @return 有效true
+     */
+    public static boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
+            // Token 有效
+            return true;
+        } catch (SignatureException e) {
+            // Token 无效，签名信息不匹配
+            return false;
+        } catch (Exception e) {
+            // Token 无效或过期
+            return false;
+        }
     }
 
 }

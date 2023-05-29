@@ -51,7 +51,7 @@ public class UserManager implements UserLogin<UserReq> {
             map.put(SecurityConstants.DETAILS_USERNAME,loginInfo.getUserName());
             String token = JwtUtils.createToken(map);
             loginInfo.setToken(token);
-            redisTemplate.opsForValue().set(RedisConstants.USER_INFO_KEY + userKey, loginInfo);
+            redisTemplate.opsForValue().set(RedisConstants.USER_INFO_KEY + userId, loginInfo);
             redisTemplate.opsForValue().increment(ONLINE_QUANTITY,1);
             log.info("创建用户信息 {}",loginInfo);
             TokenVo tokenVo = new TokenVo();

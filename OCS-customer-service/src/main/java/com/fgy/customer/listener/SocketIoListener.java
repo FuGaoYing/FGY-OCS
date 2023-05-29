@@ -6,32 +6,34 @@ import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 import com.corundumstudio.socketio.annotation.OnEvent;
 import com.fgy.common.security.utils.JwtUtils;
+import com.fgy.customer.entity.LocalSession;
+import com.fgy.customer.manager.SocketEventProcessor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.util.StringUtils;
 
 /**
  * @author fgy
- * description
+ * description socket 事件消息监听
  * date 2023/5/26 11:29
  */
 @Component
+@Slf4j
 public class SocketIoListener {
 
-    public static ConcurrentHashMap<String,SocketIOClient> map = new ConcurrentHashMap<>();
+    @Autowired
+    SocketEventProcessor socketEventProcessor;
 
     @OnConnect
     public void onConnect(SocketIOClient client) {
-        String auth = client.getHandshakeData().getSingleUrlParam("auth");
-        map.put(auth, client);
-        System.out.println("用户连接" + auth);
+        socketEventProcessor.connectionEvent(client);
     }
 
     @OnDisconnect
     public void onDisconnect(SocketIOClient client) {
+        String token = client.getHandshakeData().getSingleUrlParam("auth");
         System.out.println("用户"+ client.getSessionId() + "连接关闭");
-        map.remove(client.getHandshakeData().getSingleUrlParam("auth"));
     }
 
     @OnEvent("message")

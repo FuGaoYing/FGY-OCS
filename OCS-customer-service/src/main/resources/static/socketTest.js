@@ -1,10 +1,10 @@
 const eventNameData = 'data';
 let mySocket;
-function Result(code, message, data) {
-    return {
-        code: code,
-        message: message,
-        data: data
+class result {
+    constructor(code,message,data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 }
 
@@ -80,8 +80,10 @@ function initSocket(token) {
         if (reason === "io server disconnect" || reason === "io client disconnect") {
             console.log("会话挂断" ,reason)
             mySocket = null;
+        } else {
+            // 重连
+            tryReconnect();
         }
-        tryReconnect();
 
     });
 
@@ -105,6 +107,9 @@ function initSocket(token) {
 
 }
 
+/**
+ * 重连
+ */
 const tryReconnect = () => {
     setTimeout(() => {
         mySocket.io.open((err) => {
@@ -131,7 +136,7 @@ function emitMessage(eventName,message,callback) {
             callback(response);
         });
     }else {
-        return callback(Result(500,"连接不存在",null));
+        return callback(new result(500,"连接不存在",null));
     }
 }
 
@@ -150,6 +155,6 @@ function sendMessage(message,callback) {
             return callback(response);
         })
     } else {
-        return callback(Result(500,"连接不存在",null));
+        return callback(new result(500,"连接不存在",null));
     }
 }

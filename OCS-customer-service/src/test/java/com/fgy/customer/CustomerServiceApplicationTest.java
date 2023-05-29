@@ -20,7 +20,5 @@ public class CustomerServiceApplicationTest {
 
     @Test
     public void test() {
-        SocketIOClient aaa = SocketIoListener.map.get("aaaaaa");
-        aaa.sendEvent("data", "dada");
     }
 }
