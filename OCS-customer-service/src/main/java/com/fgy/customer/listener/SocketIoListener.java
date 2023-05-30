@@ -1,17 +1,16 @@
 package com.fgy.customer.listener;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 import com.corundumstudio.socketio.annotation.OnEvent;
-import com.fgy.common.security.utils.JwtUtils;
-import com.fgy.customer.entity.LocalSession;
+import com.fgy.common.core.domain.OcsMessage;
 import com.fgy.customer.manager.SocketEventProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 /**
  * @author fgy
@@ -25,29 +24,67 @@ public class SocketIoListener {
     @Autowired
     SocketEventProcessor socketEventProcessor;
 
+    /**
+     * 连接事件
+     * @param client 连接
+     */
     @OnConnect
     public void onConnect(SocketIOClient client) {
         socketEventProcessor.connectionEvent(client);
     }
 
+    /**
+     * 挂断事件
+     * @param client 连接
+     */
     @OnDisconnect
     public void onDisconnect(SocketIOClient client) {
-        String token = client.getHandshakeData().getSingleUrlParam("auth");
-        System.out.println("用户"+ client.getSessionId() + "连接关闭");
+        socketEventProcessor.onDisconnectEvent(client);
     }
 
+    /**
+     * 消息事件
+     * @param client 连接
+     * @param request ack回调
+     * @param template 消息体
+     */
     @OnEvent("message")
-    public void onDataEvent(SocketIOClient client, AckRequest request, Object template) {
+    public void onDataEvent(SocketIOClient client, AckRequest request, OcsMessage<String> template) {
         System.out.println(client.getSessionId());
+        extracted(request);
+    }
+
+    /**
+     * 转人工事件
+     * @param client 连接
+     * @param request ack回调
+     * @param template 消息体
+     */
+    @OnEvent("incomingLine")
+    public void onIncomingLineEvent(SocketIOClient client, AckRequest request, OcsMessage<String> template) {
+        socketEventProcessor.onIncomingLineEvent(client,request,template);
+        extracted(request);
+    }
+
+    /**
+     * 挂机事件
+     * @param client 连接
+     * @param request ack回调
+     * @param template 消息体
+     */
+    @OnEvent("close")
+    public void oncloseEvent(SocketIOClient client, AckRequest request, OcsMessage<String> template) {
+        System.out.println(client.getSessionId());
+        extracted(request);
+    }
+
+    /**
+     * ACK响应
+     * @param request 回调
+     */
+    private static void extracted(AckRequest request) {
         if (request.isAckRequested()) {
             request.sendAckData("ack");
         }
-        System.out.println("message" + template);
-    }
-
-    @OnEvent("test")
-    public void onTestEvent(SocketIOClient client, AckRequest request, Object template) {
-        System.out.println(client.getSessionId());
-        System.out.println("test" + template);
     }
 }

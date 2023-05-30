@@ -28,4 +28,4 @@ dubbo:
   registry:
     address: nacos://${spring.cloud.nacos.server-addr}
     parameters.namespace: ${spring.cloud.nacos.discovery.namespace}
-    group: dubbo
+    group: ocs

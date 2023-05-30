@@ -21,4 +21,9 @@ public interface TokenConstants {
      * 令牌秘钥
      */
     String SECRET = "abcdefghijklmnopqrstuvwxyz";
+
+    /**
+     * 过期时间 单位秒
+     */
+    long EXPIRE_TIME = 3600L;
 }

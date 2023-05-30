@@ -1,10 +1,21 @@
-const eventNameData = 'data';
+const messageEvent = 'message';
+const closeEvent = 'close';
+const incomingLineEvent = 'incomingLine';
+let url = 'http://localhost:9878/';
 let mySocket;
+
 class result {
-    constructor(code,message,data) {
+    constructor(code, message, data) {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+}
+class Message {
+    constructor(messageId,message) {
+        this.messageId = messageId;
+        this.dateTime = Date.now();
+        this.message = message;
     }
 }
 
@@ -12,7 +23,7 @@ function initSocket(token) {
     if (mySocket != null && mySocket.connected) {
         return;
     }
-    mySocket = io.connect("http://localhost:9878/",{
+    mySocket = io.connect(url, {
         // 关闭自动重连
         reconnection: false,
         query: {
@@ -21,32 +32,32 @@ function initSocket(token) {
 
     });
     mySocket.io.on("error", (error) => {
-        console.log("连接错误",error);
+        console.log("连接错误", error);
     });
     mySocket.io.on("reconnect", (attempt) => {
-        console.log("成功重新连接尝试次数",attempt);
+        console.log("成功重新连接尝试次数", attempt);
     });
 
     mySocket.io.on("reconnect_attempt", (attempt) => {
-        console.log("尝试重新连接次数",attempt);
+        console.log("尝试重新连接次数", attempt);
     });
 
     mySocket.io.on("reconnect_error", (error) => {
-        console.log("重新连接尝试错误",error);
+        console.log("重新连接尝试错误", error);
     });
 
     mySocket.io.on("reconnect_failed", () => {
         console.log("无法在reconnectionAttempts内重新连接")
     });
 
-    mySocket.on(eventNameData, (data,ack) => {
-        console.log("data",data);
-        ack("收到消息");
+    mySocket.on(messageEvent, (data, ack) => {
+        console.log("data", data);
+        ack("ack");
     });
 
 
     mySocket.on("connect", () => {
-        console.log("建立socket连接" +mySocket.id);
+        console.log("建立socket连接" + mySocket.id);
         // const engine = mySocket.io.engine;
         // console.log("transport.name" +engine.transport.name); // in most cases, prints "polling"
         //
@@ -76,9 +87,9 @@ function initSocket(token) {
         // });
     });
     mySocket.on("disconnect", (reason) => {
-        console.log("disconnect",reason);
+        console.log("disconnect", reason);
         if (reason === "io server disconnect" || reason === "io client disconnect") {
-            console.log("会话挂断" ,reason)
+            console.log("会话挂断", reason)
             mySocket = null;
         } else {
             // 重连
@@ -88,7 +99,7 @@ function initSocket(token) {
     });
 
     mySocket.on("connect_error", (error) => {
-        console.log("connect_error",error);
+        console.log("connect_error", error);
         mySocket = null;
     });
 
@@ -119,7 +130,8 @@ const tryReconnect = () => {
         });
     }, 500);
 }
-function login(name, password) {
+
+function login(name, password,callback) {
     initSocket();
 }
 
@@ -129,14 +141,14 @@ function login(name, password) {
  * @param message 消息体
  * @param callback 回调
  */
-function emitMessage(eventName,message,callback) {
-    if (mySocket != null && mySocket.connected){
-        mySocket.emit(eventName, message, (response) => {
+function emitMessage(eventName, message, callback) {
+    if (mySocket != null && mySocket.connected) {
+        mySocket.emit(eventName, new Message(message), (response) => {
             console.log(response);
             callback(response);
         });
-    }else {
-        return callback(new result(500,"连接不存在",null));
+    } else {
+        return callback(new result(500, "连接不存在", null));
     }
 }
 
@@ -145,16 +157,16 @@ function emitMessage(eventName,message,callback) {
  * @param message 消息
  * @param callback 回调
  */
-function sendMessage(message,callback) {
-    if (mySocket != null){
+function sendMessage(message, callback) {
+    if (mySocket != null) {
         if (!mySocket.connected) {
             mySocket.connect();
         }
-        mySocket.send(message,(response) => {
+        mySocket.send(new Message(message), (response) => {
             console.log(response);
             return callback(response);
         })
     } else {
-        return callback(new result(500,"连接不存在",null));
+        return callback(new result(500, "连接不存在", null));
     }
 }

@@ -31,10 +31,6 @@ public interface SecurityConstants {
      */
     String INNER = "inner";
 
-    /**
-     * 用户标识
-     */
-    String USER_KEY = "user_key";
 
     /**
      * 登录用户

@@ -13,17 +13,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LocalSession {
     private static final ConcurrentHashMap<String, SocketIOClient> LOCAL_MAP = new ConcurrentHashMap<>();
 
-    public static void addSession(String userKey,SocketIOClient client) {
-        LOCAL_MAP.put(userKey, client);
+    public static void addSession(String userId,SocketIOClient client) {
+        LOCAL_MAP.put(userId, client);
     }
-    public static void removeSession(String userKey) {
-        LOCAL_MAP.remove(userKey);
+    public static void removeSession(String userId) {
+        LOCAL_MAP.remove(userId);
     }
-    public static SocketIOClient get(String userKey) {
-        return LOCAL_MAP.get(userKey);
+    public static SocketIOClient get(String userId) {
+        return LOCAL_MAP.get(userId);
     }
-    public static boolean containsKey(String userKey) {
-        return LOCAL_MAP.containsKey(userKey);
+    public static boolean containsKey(String userId) {
+        return LOCAL_MAP.containsKey(userId);
     }
 
     public static int size() {
