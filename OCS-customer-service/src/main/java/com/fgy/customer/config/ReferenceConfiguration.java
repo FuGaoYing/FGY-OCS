@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ReferenceConfiguration {
     @Bean
-    @DubboReference(group = "ocs")
+    @DubboReference()
     public ReferenceBean<InCallService> helloService() {
         return new ReferenceBean<>();
     }

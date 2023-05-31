@@ -11,5 +11,5 @@ import com.fgy.common.core.result.CommonResult;
  */
 
 public interface InCallService {
-    CommonResult<String> inCall(UserInfo userInfo);
+    CommonResult<Object> inCall(UserInfo userInfo);
 }

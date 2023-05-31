@@ -12,8 +12,8 @@ class result {
     }
 }
 class Message {
-    constructor(messageId,message) {
-        this.messageId = messageId;
+    constructor(message) {
+        this.messageId = '';
         this.dateTime = Date.now();
         this.message = message;
     }

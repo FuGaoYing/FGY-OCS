@@ -3,21 +3,21 @@ package com.fgy.common.core.result;
 import com.fgy.common.core.enums.ResultCodeEnum;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author fgy
  * description 统一返回
  * date 2023/4/26 13:49
  */
 @Data
-public class CommonResult<T> {
+public class CommonResult<T> implements Serializable {
 
     private Integer code;
 
     private String message;
 
     private T data;
-
-    public CommonResult(){}
 
     private static <T> CommonResult<T> build(Integer code,String message,T data) {
         CommonResult<T> result = new CommonResult<T>();

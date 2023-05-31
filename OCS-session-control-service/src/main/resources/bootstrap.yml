@@ -1,18 +1,15 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
-    name: customer-service
+    name: session-control-service
   data:
     redis:
       port: 6379
       host: 82.157.139.239
       password: 123456
       timeout: 5000
-    socket:
-      host: localhost
-      port: 9878
 
   cloud:
     nacos:
@@ -24,13 +21,13 @@ spring:
 
 dubbo:
   protocol:
-    #    序列化方式
+#    序列化方式
     serialization: fastjson2
-#      optimizer: com.fgy.common.core.config.SerializationOptimizerImpl
+#    optimizer: com.fgy.common.core.config.SerializationOptimizerImpl
   application:
     name: ${spring.application.name}
     qos:
-#      禁用
+#      禁用qos
       enable: false
   registry:
     address: nacos://${spring.cloud.nacos.server-addr}

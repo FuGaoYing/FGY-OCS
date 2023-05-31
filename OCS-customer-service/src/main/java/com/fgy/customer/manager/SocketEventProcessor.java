@@ -15,6 +15,7 @@ import com.fgy.customer.entity.LoginInfo;
 import com.fgy.customer.enums.UserStateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -46,6 +47,7 @@ public class SocketEventProcessor {
         String token = client.getHandshakeData().getSingleUrlParam("auth");
         if (JwtUtils.validateToken(token)){
             String userId = JwtUtils.getUserId(token);
+            log.info("用户 {} 进线 socketId {}", userId,client.getSessionId().toString());
             if (StringUtils.hasLength(userId)) {
                 LocalUserId.addSession(client.getSessionId().toString(),userId);
                 LoginInfo loginInfo = (LoginInfo) redisTemplate.opsForValue().get(RedisConstants.USER_INFO_KEY + userId);
@@ -75,20 +77,22 @@ public class SocketEventProcessor {
         String userId = LocalUserId.get(client.getSessionId().toString());
         log.info("socket断开事件 userId = {}",userId);
         try {
-            LoginInfo loginInfo = (LoginInfo) redisTemplate.opsForValue().get(RedisConstants.USER_INFO_KEY + userId);
-            if (loginInfo != null) {
-                UserStateEnum userState = loginInfo.getUserState();
-                // 用户离线
-                if (userState == UserStateEnum.IN_CALL || userState == UserStateEnum.ON_CALL) {
-                    log.info("用户 {} 离线 ", userId);
-                    // TODO 通知坐席用户离线
-                    return;
+            if (StringUtils.hasLength(userId)) {
+                LoginInfo loginInfo = (LoginInfo) redisTemplate.opsForValue().get(RedisConstants.USER_INFO_KEY + userId);
+                if (loginInfo != null) {
+                    UserStateEnum userState = loginInfo.getUserState();
+                    // 用户离线
+                    if (userState == UserStateEnum.IN_CALL || userState == UserStateEnum.ON_CALL) {
+                        log.info("用户 {} 离线 ", userId);
+                        // TODO 通知坐席用户离线
+                        return;
+                    }
+                    redisTemplate.delete(RedisConstants.USER_INFO_KEY + userId);
+                    redisTemplate.opsForValue().decrement(ONLINE_QUANTITY);
+                    client.disconnect();
                 }
-                redisTemplate.delete(RedisConstants.USER_INFO_KEY + userId);
-                redisTemplate.opsForValue().decrement(ONLINE_QUANTITY);
-                client.disconnect();
+                LocalSession.removeSession(userId);
             }
-            LocalSession.removeSession(userId);
         } catch (Exception e) {
             log.error("异常 ",e);
         } finally {
@@ -107,8 +111,11 @@ public class SocketEventProcessor {
                 loginInfo.setUserState(UserStateEnum.IN_CALL);
                 UserInfo userInfo = new UserInfo();
                 BeanUtils.copyProperties(loginInfo,userInfo);
-
-                CommonResult<String> result = inCallService.inCall(userInfo);
+                RpcContext.getClientAttachment().setAttachment("auth",loginInfo.getToken());
+                CommonResult<Object> result = inCallService.inCall(userInfo);
+                if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
+                    redisTemplate.opsForValue().set(RedisConstants.USER_INFO_KEY + userId,loginInfo);
+                }
                 extracted(request,result);
                 return;
             }
