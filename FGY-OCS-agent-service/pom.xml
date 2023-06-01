@@ -9,8 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>OCS-customer-service</artifactId>
-
+    <artifactId>FGY-OCS-agent-service</artifactId>
 
     <dependencies>
         <!-- SpringCloud Alibaba Nacos -->
@@ -42,39 +41,41 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.fgy</groupId>
             <artifactId>FGY-OCS-common-security</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.fgy</groupId>
-            <artifactId>FGY-OCS-common-redis</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.fgy</groupId>
             <artifactId>FGY-OCS-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.corundumstudio.socketio</groupId>
-            <artifactId>netty-socketio</artifactId>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
-
 </project>

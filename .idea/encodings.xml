@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/OCS-ACD-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-ACD-service/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-agent-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-agent-service/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-ACD-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-ACD-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-agent-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-agent-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-redis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-redis/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-security/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OCS-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OSC-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FGY-OSC-system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OCS-common/FGY-OCS-common-redis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OCS-common/FGY-OCS-common-redis/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OCS-common/FGY-OCS-common-security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OCS-common/FGY-OCS-common-security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-core/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-redis/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-redis/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-security/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OCS-common/OCS-common-security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-customer-service/src/main/java" charset="UTF-8" />
@@ -27,8 +37,6 @@
     <file url="file://$PROJECT_DIR$/OCS-session-control-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-session-routing-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OCS-session-routing-service/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OSC-system/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OSC-system/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

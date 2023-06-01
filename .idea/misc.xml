@@ -7,6 +7,9 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/OCS-common/OCS-common-core/pom.xml" />
         <option value="$PROJECT_DIR$/OCS-common/OCS-common-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-core/pom.xml" />
+        <option value="$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/FGY-OCS-common/FGY-OCS-common-security/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

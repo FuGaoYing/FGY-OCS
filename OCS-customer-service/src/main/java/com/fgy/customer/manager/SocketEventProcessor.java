@@ -114,9 +114,10 @@ public class SocketEventProcessor {
                 RpcContext.getClientAttachment().setAttachment("auth",loginInfo.getToken());
                 CommonResult<Object> result = inCallService.inCall(userInfo);
                 if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
+                    // 更新用户状态
                     redisTemplate.opsForValue().set(RedisConstants.USER_INFO_KEY + userId,loginInfo);
                 }
-                extracted(request,result);
+                extracted(request,result.getData());
                 return;
             }
             log.info("用户 {} 重复转人工",userId);

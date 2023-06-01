@@ -5,20 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fgy</groupId>
-    <artifactId>OCS</artifactId>
+    <artifactId>FGY-OCS</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>OCS-common</module>
+        <module>FGY-OCS-common</module>
         <module>OCS-session-routing-service</module>
         <module>OCS-session-control-service</module>
-        <module>OCS-agent-service</module>
+        <module>FGY-OCS-agent-service</module>
         <module>OCS-gateway</module>
         <module>OCS-customer-service</module>
         <module>OCS-push-service</module>
-        <module>OCS-ACD-service</module>
-        <module>OCS-api</module>
-        <module>OSC-system</module>
+        <module>FGY-OCS-ACD-service</module>
+        <module>FGY-OCS-api</module>
+        <module>FGY-OSC-system</module>
     </modules>
 
     <properties>
@@ -148,22 +148,22 @@
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.fgy</groupId>
-                <artifactId>OCS-common-core</artifactId>
+                <artifactId>FGY-OCS-common-core</artifactId>
                 <version>${OCS.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fgy</groupId>
-                <artifactId>OCS-common-redis</artifactId>
+                <artifactId>FGY-OCS-common-redis</artifactId>
                 <version>${OCS.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fgy</groupId>
-                <artifactId>OCS-common-security</artifactId>
+                <artifactId>FGY-OCS-common-security</artifactId>
                 <version>${OCS.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fgy</groupId>
-                <artifactId>OCS-api</artifactId>
+                <artifactId>FGY-OCS-api</artifactId>
                 <version>${OCS.version}</version>
             </dependency>
         </dependencies>
