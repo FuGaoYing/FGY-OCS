@@ -10,12 +10,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>FGY-OCS-common</module>
-        <module>OCS-session-routing-service</module>
-        <module>OCS-session-control-service</module>
+        <module>FGY-OCS-session-routing-service</module>
+        <module>FGY-OCS-session-control-service</module>
         <module>FGY-OCS-agent-service</module>
-        <module>OCS-gateway</module>
-        <module>OCS-customer-service</module>
-        <module>OCS-push-service</module>
+        <module>FGY-OCS-gateway</module>
+        <module>FGY-OCS-customer-service</module>
+        <module>FGY-OCS-push-service</module>
         <module>FGY-OCS-ACD-service</module>
         <module>FGY-OCS-api</module>
         <module>FGY-OSC-system</module>

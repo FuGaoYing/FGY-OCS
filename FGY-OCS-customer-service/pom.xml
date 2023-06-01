@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>OCS-customer-service</artifactId>
+    <artifactId>FGY-OCS-customer-service</artifactId>
 
 
     <dependencies>
