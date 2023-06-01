@@ -1,6 +1,5 @@
 package com.fgy.customer.listener;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.annotation.OnConnect;
@@ -51,7 +50,6 @@ public class SocketIoListener {
     @OnEvent("message")
     public void onDataEvent(SocketIOClient client, AckRequest request, OcsMessage<String> template) {
         System.out.println(client.getSessionId());
-        extracted(request);
     }
 
     /**
@@ -63,7 +61,6 @@ public class SocketIoListener {
     @OnEvent("incomingLine")
     public void onIncomingLineEvent(SocketIOClient client, AckRequest request, OcsMessage<String> template) {
         socketEventProcessor.onIncomingLineEvent(client,request,template);
-        extracted(request);
     }
 
     /**
@@ -75,16 +72,6 @@ public class SocketIoListener {
     @OnEvent("close")
     public void oncloseEvent(SocketIOClient client, AckRequest request, OcsMessage<String> template) {
         System.out.println(client.getSessionId());
-        extracted(request);
     }
 
-    /**
-     * ACK响应
-     * @param request 回调
-     */
-    private static void extracted(AckRequest request) {
-        if (request.isAckRequested()) {
-            request.sendAckData("ack");
-        }
-    }
 }

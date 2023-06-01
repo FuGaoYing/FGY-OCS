@@ -117,7 +117,7 @@ public class SocketEventProcessor {
                     // 更新用户状态
                     redisTemplate.opsForValue().set(RedisConstants.USER_INFO_KEY + userId,loginInfo);
                 }
-                extracted(request,result.getData());
+                extracted(request,result);
                 return;
             }
             log.info("用户 {} 重复转人工",userId);

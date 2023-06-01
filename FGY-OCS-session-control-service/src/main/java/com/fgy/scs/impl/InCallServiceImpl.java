@@ -8,12 +8,14 @@ import com.fgy.common.core.enums.ResultCodeEnum;
 import com.fgy.common.core.enums.StateEnums.SessionStateEnum;
 import com.fgy.common.core.result.CommonResult;
 import com.fgy.common.core.utils.IdUtils;
+import com.fgy.common.redis.constant.RedisConstants;
 import com.fgy.common.security.utils.JwtUtils;
 import com.fgy.scs.actuator.CallActuator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * @author fgy
@@ -25,6 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class InCallServiceImpl implements InCallService {
     @Autowired
     CallActuator inCallActuator;
+    @Autowired
+    RedisTemplate<String,Object> redisTemplate;
 
     @Override
     public CommonResult<Object> inCall(UserInfo userInfo) {
@@ -43,12 +47,19 @@ public class InCallServiceImpl implements InCallService {
             sessionInfo.setUserName(userInfo.getUserName());
             sessionInfo.setChannelType(userInfo.getChannelType());
             sessionInfo.setDeviceType(userInfo.getDeviceType());
+            sessionInfo.setRemoteHost(remoteHost);
             sessionInfo.setSessionState(SessionStateEnum.IN_CALL_TRANSFER);
+            // 存储会话信息
+            redisTemplate.opsForValue().set(RedisConstants.SESSION_INFO_KEY + sessionId,sessionInfo);
             inCallActuator.executeCallTasks(sessionInfo);
-            return CommonResult.ok(TermConstant.TRANSFER_TERM);
+            return CommonResult.ok(TermConstant.TRANSFER_TERM,sessionId);
         }
         return CommonResult.fail(ResultCodeEnum.PERMISSION_ERROR.getCode(),ResultCodeEnum.PERMISSION_ERROR.getMessage());
     }
+
+
+
+
 
     private boolean inCallVerification(String token, UserInfo userInfo) {
         if (JwtUtils.validateToken(token)) {
