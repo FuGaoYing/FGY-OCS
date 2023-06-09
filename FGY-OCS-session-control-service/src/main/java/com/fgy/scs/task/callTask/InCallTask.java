@@ -4,6 +4,8 @@ import com.fgy.common.core.domain.info.SessionInfo;
 import com.fgy.common.core.enums.StateEnums.SessionStateEnum;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,12 +16,25 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class InCallTask implements CallTask{
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public void execute(SessionInfo sessionInfo) {
         log.info("执行入呼事件任务 {}", sessionInfo);
-        // 申请坐席分配
+        try {
+            // 请求acd 申请坐席分配
+            Object receive = rabbitTemplate.convertSendAndReceive(sessionInfo);
+            // 保存会话流水
+//            rabbitTemplate.convertSendAndReceive();
+            // 通知客户端
 
+        } catch (Exception e) {
+            // 调用acd服务出问题 处理失败流程
+            // 1. 结束会话
+            // 2. 通知客户端
+            // 3. 存储失败流失记录
+        }
         // 创建坐席分配定时器
     }
 

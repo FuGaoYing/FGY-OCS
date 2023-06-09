@@ -67,6 +67,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.fgy</groupId>
+            <artifactId>FGY-OCS-common-mq</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 

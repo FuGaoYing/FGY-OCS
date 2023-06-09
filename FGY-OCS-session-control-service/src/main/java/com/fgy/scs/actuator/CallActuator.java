@@ -38,7 +38,6 @@ public class CallActuator {
         // 执行任务
         POOL_EXECUTOR.execute(sessionTask);
         log.info("执行任务 {} {}",sessionInfo,callTask);
-
     }
 
 

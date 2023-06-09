@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * @author fgy
- * description
+ * description 会话任务对象容器 存储会话任务对象
  * date 2023/6/1 16:02
  */
 public class CallTaskInfo {

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class ReferenceConfiguration {
     @Bean
     @DubboReference()
-    public ReferenceBean<InCallService> helloService() {
+    public ReferenceBean<InCallService> inCallService() {
         return new ReferenceBean<>();
     }
 }

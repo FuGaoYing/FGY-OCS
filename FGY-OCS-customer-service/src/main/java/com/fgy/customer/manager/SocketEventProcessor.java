@@ -16,6 +16,7 @@ import com.fgy.customer.enums.UserStateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.rpc.RpcContext;
+import org.apache.dubbo.rpc.RpcException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -112,15 +113,21 @@ public class SocketEventProcessor {
                 UserInfo userInfo = new UserInfo();
                 BeanUtils.copyProperties(loginInfo,userInfo);
                 RpcContext.getClientAttachment().setAttachment("auth",loginInfo.getToken());
-                CommonResult<Object> result = inCallService.inCall(userInfo);
-                if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
-                    // 更新用户状态
-                    redisTemplate.opsForValue().set(RedisConstants.USER_INFO_KEY + userId,loginInfo);
+                try {
+                    CommonResult<Object> result = inCallService.inCall(userInfo);
+                    if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
+                        // 更新用户状态
+                        redisTemplate.opsForValue().set(RedisConstants.USER_INFO_KEY + userId,loginInfo);
+                    }
+                    extracted(request,result);
+                } catch (RpcException e) {
+                    log.warn("调用inCallService 异常",e);
+                    extracted(request,CommonResult.fail(ResultCodeEnum.RPC_ERROR.getCode(),ResultCodeEnum.RPC_ERROR.getMessage()));
                 }
-                extracted(request,result);
                 return;
             }
             log.info("用户 {} 重复转人工",userId);
+            return;
         }
         log.info("用户 {} 未登录", userId);
     }

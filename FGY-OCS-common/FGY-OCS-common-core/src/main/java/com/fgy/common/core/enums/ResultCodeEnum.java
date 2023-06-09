@@ -35,7 +35,8 @@ public enum ResultCodeEnum {
 
     SQL_ERROR(206,"约束sql异常"),
 
-    REPEAT_ERROR(207,"内容重复");
+    REPEAT_ERROR(207,"内容重复"),
+    RPC_ERROR(208,"远程服务调用异常");
 
     private final Integer code;
     private final String message;

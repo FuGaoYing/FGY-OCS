@@ -15,6 +15,7 @@
         <module>FGY-OCS-common-security</module>
         <module>FGY-OCS-common-redis</module>
         <module>FGY-OCS-common-core</module>
+        <module>FGY-OCS-common-mq</module>
     </modules>
 
 
