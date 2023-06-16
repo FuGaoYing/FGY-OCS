@@ -11,5 +11,10 @@ import com.fgy.common.core.result.CommonResult;
  */
 
 public interface InCallService {
+    /**
+     * 入呼
+     * @param userInfo 用户信息
+     * @return
+     */
     CommonResult<Object> inCall(UserInfo userInfo);
 }

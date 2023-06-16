@@ -2,6 +2,7 @@ package com.fgy.scs.config;
 
 import com.fgy.common.mq.constants.ExchangeConstants;
 import com.fgy.common.mq.constants.QueueConstants;
+import com.fgy.common.mq.constants.RoutingKeyConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,6 +41,6 @@ public class RabbitMqConfig {
     @Bean
     public Binding binding(@Qualifier(QueueConstants.SCS_ACD_QUEUE) Queue queue,
                             @Qualifier(ExchangeConstants.SCS_EXCHANGE) Exchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with("").noargs();
+        return BindingBuilder.bind(queue).to(exchange).with(RoutingKeyConstants.SCS_ACD_ROUTING_KEY).noargs();
     }
 }

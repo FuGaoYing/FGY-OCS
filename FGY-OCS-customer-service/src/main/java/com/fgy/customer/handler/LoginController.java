@@ -6,13 +6,11 @@ import com.fgy.common.core.result.CommonResult;
 import com.fgy.customer.entity.req.UserReq;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author fgy
- * description
+ * description 登录控制器
  * date 2023/5/25 9:55
  */
 @RestController
@@ -23,8 +21,6 @@ public class LoginController {
     @Resource(name = "userManager")
     private UserLogin<UserReq> userLogin;
 
-    @Autowired
-    private RedisTemplate<String,Object> redisTemplate;
 
     @PostMapping("/login")
     public CommonResult<TokenVo> login(@RequestBody UserReq userReq) {

@@ -2,11 +2,18 @@ package com.fgy.scs.task.callTask;
 
 import com.fgy.common.core.domain.info.SessionInfo;
 import com.fgy.common.core.enums.StateEnums.SessionStateEnum;
+import com.fgy.common.mq.constants.ExchangeConstants;
+import com.fgy.common.mq.constants.RoutingKeyConstants;
+import com.fgy.common.redis.constant.RedisConstants;
+import com.fgy.scs.actuator.CallActuator;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+
 
 /**
  * @author fgy
@@ -18,28 +25,37 @@ import org.springframework.stereotype.Component;
 public class InCallTask implements CallTask{
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
+
+    @Autowired
+    CallActuator callActuator;
 
     @Override
     public void execute(SessionInfo sessionInfo) {
         log.info("执行入呼事件任务 {}", sessionInfo);
         try {
             // 请求acd 申请坐席分配
-            Object receive = rabbitTemplate.convertSendAndReceive(sessionInfo);
+            rabbitTemplate.convertSendAndReceive(ExchangeConstants.SCS_EXCHANGE, RoutingKeyConstants.SCS_ACD_ROUTING_KEY,
+                    sessionInfo, new CorrelationData());
             // 保存会话流水
 //            rabbitTemplate.convertSendAndReceive();
             // 通知客户端
 
         } catch (Exception e) {
-            // 调用acd服务出问题 处理失败流程
-            // 1. 结束会话
-            // 2. 通知客户端
-            // 3. 存储失败流失记录
+            log.warn("用户 {} 入呼转人工失败，原因 {}",sessionInfo,e.getMessage());
+            sessionInfo.setSessionState(SessionStateEnum.CALL_ACD_ERROR);
+            callActuator.executeCallTasks(sessionInfo);
         }
-        // 创建坐席分配定时器
+        redisTemplate.opsForHash().put(RedisConstants.ASSIGN_AGENT_TIME, sessionInfo.getSessionId(),System.currentTimeMillis());
+        sessionInfo.setSessionState(SessionStateEnum.WAITING_FOR_ALLOCATION);
+        redisTemplate.opsForValue().set(RedisConstants.SESSION_INFO_KEY + sessionInfo.getSessionId(),sessionInfo);
     }
 
     @PostConstruct
     private void initialize() {
-        CallTaskInfo.put(SessionStateEnum.IN_CALL_TRANSFER,new InCallTask());
+        CallTaskInfo.put(SessionStateEnum.IN_CALL_TRANSFER,this);
     }
+
+
 }

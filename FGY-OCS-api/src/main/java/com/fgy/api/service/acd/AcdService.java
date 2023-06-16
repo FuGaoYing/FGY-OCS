@@ -9,5 +9,11 @@ import com.fgy.common.core.result.CommonResult;
  * date 2023/6/1 16:24
  */
 public interface AcdService {
-    CommonResult<Object> assignAgent(SessionInfo sessionInfo);
+
+    default CommonResult<Object> assignAgent(SessionInfo sessionInfo){
+        return CommonResult.ok();
+    }
+    default CommonResult<Object> acdResponse(SessionInfo sessionInfo){
+        return CommonResult.ok();
+    }
 }

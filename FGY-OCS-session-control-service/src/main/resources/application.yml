@@ -1,0 +1,12 @@
+spring:
+  rabbitmq:
+    host: 82.157.139.239
+    port: 5672
+    username: admin
+    password: admin
+  data:
+    redis:
+      port: 6379
+      host: 82.157.139.239
+      password: 123456
+      timeout: 5000
