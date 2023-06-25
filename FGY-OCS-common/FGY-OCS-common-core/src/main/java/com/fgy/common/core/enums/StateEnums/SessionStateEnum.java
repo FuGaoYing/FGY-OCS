@@ -19,6 +19,9 @@ public enum SessionStateEnum {
      */
     CALL_AGENT,
 
+    /**
+     * 请求acd异常
+     */
     CALL_ACD_ERROR,
 
     /**

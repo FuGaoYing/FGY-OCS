@@ -1,6 +1,7 @@
-package com.fgy.scs.task.callTask;
+package com.fgy.scs.task;
 
 import com.fgy.common.core.enums.StateEnums.SessionStateEnum;
+import com.fgy.scs.task.CallTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  * date 2023/6/1 16:02
  */
 public class CallTaskInfo {
-    private static final Map<SessionStateEnum,CallTask> CALL_TASK_MAP = new HashMap<>();
+    private static final Map<SessionStateEnum, CallTask> CALL_TASK_MAP = new HashMap<>();
 
     public static CallTask get(SessionStateEnum stateEnum){
         return CALL_TASK_MAP.get(stateEnum);

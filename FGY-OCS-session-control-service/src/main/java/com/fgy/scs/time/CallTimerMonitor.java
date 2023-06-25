@@ -1,4 +1,4 @@
-package com.fgy.scs.monitor;
+package com.fgy.scs.time;
 
 import com.fgy.common.core.domain.info.SessionInfo;
 import com.fgy.common.core.enums.StateEnums.SessionStateEnum;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author fgy
- * description
+ * description 呼叫超时监听器
  * date 2023/6/16 15:42
  */
 @Component
@@ -37,9 +37,11 @@ public class CallTimerMonitor{
                     return value  > System.currentTimeMillis() - 20 * 1000;
                 }).forEach(entry -> {
                     String sessionId = entry.getKey().toString();
+                    // TODO 需要加锁
                     SessionInfo sessionInfo =  (SessionInfo) redisTemplate.opsForValue().get(RedisConstants.SESSION_INFO_KEY + sessionId);
                     if (sessionInfo != null){
                         sessionInfo.setSessionState(SessionStateEnum.WAITING_ALLOCATION_TIME_OUT);
+                        redisTemplate.opsForValue().set(RedisConstants.SESSION_INFO_KEY + sessionId,sessionInfo);
                         callActuator.executeCallTasks(sessionInfo);
                     }
                 });

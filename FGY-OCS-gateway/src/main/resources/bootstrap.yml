@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: fgy-gateway
+  cloud:
+    nacos:
+      server-addr: 82.157.139.239:8848
+      config:
+        namespace: 73089378-b819-4838-8d1d-2220ed73323e
+        file-extension: yaml
+      discovery:
+        namespace: 73089378-b819-4838-8d1d-2220ed73323e

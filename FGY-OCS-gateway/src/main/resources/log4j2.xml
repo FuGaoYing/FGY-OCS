@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    status="warn" 日志框架本身的输出日志级别，可以修改为debug
+    monitorInterval="5" 自动加载配置文件的间隔时间，不低于 5秒；生产环境中修改配置文件，是热更新，无需重启应用
+ -->
+<Configuration name="ocs-gateway" status="ERROR" monitorInterval="5">
+    <!-- 集中配置属性进行管理 使用时通过:${name} -->
+    <Properties>
+        <Property name="baseDir" value="D:\logs"/>
+        <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
+        <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
+        <Property name="LOG_PATTERN" value="[%d] %-5p [%t:%r] - %l: %m%n"/>
+        <!--日志编码-->
+        <property name="CHARSET" value="utf-8"/>
+        <!--日志应用名 拼接日志路径-->
+        <property name="FILE_NAME" value="ocs-gateway"/>
+        <!--日志级别-->
+        <property name="LEVEL" value="info"/>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+<!--            <ThresholdFilter level="info" onMatch="ACCEPT"-->
+<!--                             onMismatch="DENY"/>-->
+            <PatternLayout
+                    pattern="[%d{MM:dd HH:mm:ss.SSS}] [%level] [%logger{36}] - %msg%n"/>
+        </Console>
+
+        <!--debug级别日志文件输出-->
+        <RollingFile name="appender" fileName="${baseDir}/${FILE_NAME}/ocs-gateway.log"
+                     filePattern="${baseDir}/${FILE_NAME}/ocs-gateway_%i.log.%d{yyyy-MM-dd}">
+            <!-- 日志格式 -->
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <!-- 策略 -->
+            <Policies>
+                <!-- 每隔一天转存 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- 文件大小 -->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework.cloud.gateway" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="appender"/>
+        </Root>
+    </Loggers>
+</Configuration>

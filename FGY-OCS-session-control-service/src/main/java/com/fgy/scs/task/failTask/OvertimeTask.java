@@ -1,8 +1,10 @@
-package com.fgy.scs.task.callTask;
+package com.fgy.scs.task.failTask;
 
 import com.fgy.common.core.domain.info.SessionInfo;
 import com.fgy.common.core.enums.StateEnums.SessionStateEnum;
 import com.fgy.common.redis.constant.RedisConstants;
+import com.fgy.scs.task.CallTask;
+import com.fgy.scs.task.CallTaskInfo;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,7 +22,10 @@ public class OvertimeTask implements CallTask {
 
     @Override
     public void execute(SessionInfo sessionInfo) {
+        // 清除会话信息
         redisTemplate.delete(RedisConstants.SESSION_INFO_KEY + sessionInfo.getSessionId());
+        // 通知客户
+        // 保存流水记录
 
     }
 

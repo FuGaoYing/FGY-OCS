@@ -1,4 +1,4 @@
-package com.fgy.acd.AcdApplication;
+package com.fgy.acd;
 
 /**
  * @author fgy
@@ -6,4 +6,5 @@ package com.fgy.acd.AcdApplication;
  * date 2023/5/23 14:04
  */
 public class AcdApplication {
+
 }

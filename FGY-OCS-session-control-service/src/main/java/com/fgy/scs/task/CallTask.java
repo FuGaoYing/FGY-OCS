@@ -1,4 +1,4 @@
-package com.fgy.scs.task.callTask;
+package com.fgy.scs.task;
 
 import com.fgy.common.core.domain.info.SessionInfo;
 

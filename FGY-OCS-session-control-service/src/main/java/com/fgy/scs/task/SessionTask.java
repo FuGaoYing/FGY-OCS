@@ -1,7 +1,6 @@
 package com.fgy.scs.task;
 
 import com.fgy.common.core.domain.info.SessionInfo;
-import com.fgy.scs.task.callTask.CallTask;
 
 /**
  * @author fgy

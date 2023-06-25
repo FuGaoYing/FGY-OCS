@@ -1,10 +1,9 @@
 package com.fgy.scs.actuator;
 
 import com.fgy.common.core.domain.info.SessionInfo;
-import com.fgy.common.core.enums.StateEnums.SessionStateEnum;
 import com.fgy.common.core.thread.OcsThreadFactory;
-import com.fgy.scs.task.callTask.CallTask;
-import com.fgy.scs.task.callTask.CallTaskInfo;
+import com.fgy.scs.task.CallTask;
+import com.fgy.scs.task.CallTaskInfo;
 import com.fgy.scs.task.SessionTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

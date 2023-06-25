@@ -6,6 +6,8 @@ import com.fgy.common.mq.constants.ExchangeConstants;
 import com.fgy.common.mq.constants.RoutingKeyConstants;
 import com.fgy.common.redis.constant.RedisConstants;
 import com.fgy.scs.actuator.CallActuator;
+import com.fgy.scs.task.CallTask;
+import com.fgy.scs.task.CallTaskInfo;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class InCallTask implements CallTask{
+public class InCallTask implements CallTask {
     @Autowired
     private RabbitTemplate rabbitTemplate;
     @Autowired
@@ -40,22 +42,23 @@ public class InCallTask implements CallTask{
                     sessionInfo, new CorrelationData());
             // 保存会话流水
 //            rabbitTemplate.convertSendAndReceive();
-            // 通知客户端
+            // 保存请求acd时间
+            redisTemplate.opsForHash().put(RedisConstants.ASSIGN_AGENT_TIME, sessionInfo.getSessionId(),System.currentTimeMillis());
+            sessionInfo.setSessionState(SessionStateEnum.WAITING_FOR_ALLOCATION);
+            redisTemplate.opsForValue().set(RedisConstants.SESSION_INFO_KEY + sessionInfo.getSessionId(),sessionInfo);
 
         } catch (Exception e) {
             log.warn("用户 {} 入呼转人工失败，原因 {}",sessionInfo,e.getMessage());
             sessionInfo.setSessionState(SessionStateEnum.CALL_ACD_ERROR);
             callActuator.executeCallTasks(sessionInfo);
         }
-        redisTemplate.opsForHash().put(RedisConstants.ASSIGN_AGENT_TIME, sessionInfo.getSessionId(),System.currentTimeMillis());
-        sessionInfo.setSessionState(SessionStateEnum.WAITING_FOR_ALLOCATION);
-        redisTemplate.opsForValue().set(RedisConstants.SESSION_INFO_KEY + sessionInfo.getSessionId(),sessionInfo);
     }
 
     @PostConstruct
     private void initialize() {
         CallTaskInfo.put(SessionStateEnum.IN_CALL_TRANSFER,this);
     }
+
 
 
 }

@@ -58,9 +58,12 @@ public class InCallServiceImpl implements InCallService {
     }
 
 
-
-
-
+    /**
+     * 参数校验
+     * @param token token
+     * @param userInfo 入参
+     * @return
+     */
     private boolean inCallVerification(String token, UserInfo userInfo) {
         if (JwtUtils.validateToken(token)) {
             String userId = JwtUtils.getUserId(token);
